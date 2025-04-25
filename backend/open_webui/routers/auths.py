@@ -336,12 +336,12 @@ async def signin(request: Request, response: Response, form_data: SigninForm):
         if WEBUI_AUTH_TRUSTED_EMAIL_HEADER not in request.headers:
             raise HTTPException(400, detail=ERROR_MESSAGES.INVALID_TRUSTED_HEADER)
 
-        trusted_email = request.headers[WEBUI_AUTH_TRUSTED_EMAIL_HEADER].lower()
+        trusted_email = request.headers[WEBUI_AUTH_TRUSTED_EMAIL_HEADER].lower().split(':')[1]  # parse IAP header
         trusted_name = trusted_email
         if WEBUI_AUTH_TRUSTED_NAME_HEADER:
-            trusted_name = request.headers.get(
-                WEBUI_AUTH_TRUSTED_NAME_HEADER, trusted_email
-            )
+            email_name = trusted_email.split('@')[0]
+            email_first_name = email_name.split('.')[0]
+            trusted_name = email_first_name.title()
         if not Users.get_user_by_email(trusted_email.lower()):
             await signup(
                 request,
