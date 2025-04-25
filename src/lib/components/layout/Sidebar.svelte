@@ -890,33 +890,9 @@
 		</div>
 
 		<div class="px-2">
-			<div class="flex flex-col font-primary">
-				{#if $user !== undefined && $user !== null}
-					<UserMenu
-						role={$user?.role}
-						on:show={(e) => {
-							if (e.detail === 'archived-chat') {
-								showArchivedChats.set(true);
-							}
-						}}
-					>
-						<button
-							class=" flex items-center rounded-xl py-2.5 px-2.5 w-full hover:bg-gray-100 dark:hover:bg-gray-900 transition"
-							on:click={() => {
-								showDropdown = !showDropdown;
-							}}
-						>
-							<div class=" self-center mr-3">
-								<img
-									src={$user?.profile_image_url}
-									class=" max-w-[30px] object-cover rounded-full"
-									alt="User profile"
-								/>
-							</div>
-							<div class=" self-center font-medium">{$user?.name}</div>
-						</button>
-					</UserMenu>
-				{/if}
+			<div class="flex font-primary p-4 mx-auto" style="justify-content: center;">
+    			<button><img crossorigin="anonymous" src="/static/favicon.png" class="size-9 @sm:size-10 rounded-full border-[1px] border-gray-100 dark:border-none" alt="logo" draggable="false"></button>
+				<a class="p-3" href="#">Back to Croud OS</a>
 			</div>
 		</div>
 	</div>
