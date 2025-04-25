@@ -6,8 +6,8 @@ import mimetypes
 import os
 import shutil
 import sys
-import time
 import random
+import time
 
 from contextlib import asynccontextmanager
 from urllib.parse import urlencode, parse_qs, urlparse
@@ -879,10 +879,37 @@ class RedirectMiddleware(BaseHTTPMiddleware):
         return response
 
 
+class DevelopmentHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request: Request, call_next):
+        if os.environ.get("ENV") == "local":
+            dev_headers = {
+                "X-Goog-Authenticated-User-Email": "accounts:" + os.environ.get("DEV_MODE_USER_EMAIL"),
+                "X-Goog-Authenticated-User-Id": os.environ.get("DEV_MODE_USER_ID"),
+            }
+
+            # Convert new headers to the bytes format expected by scope['headers']
+            dev_headers_bytes = [
+                (k.lower().encode('latin-1'), v.encode('latin-1'))
+                for k, v in dev_headers.items()
+            ]
+
+            # Filter out existing headers that we are spoofing
+            existing_headers = [
+                (k, v) for k, v in request.scope['headers']
+                if k.decode('latin-1').lower() not in [hdr[0].decode('latin-1') for hdr in dev_headers_bytes]
+            ]
+
+            # Add the spoofed headers
+            request.scope['headers'] = existing_headers + dev_headers_bytes
+
+        response = await call_next(request)
+        return response
+
+
 # Add the middleware to the app
 app.add_middleware(RedirectMiddleware)
 app.add_middleware(SecurityHeadersMiddleware)
-
+app.add_middleware(DevelopmentHeadersMiddleware)
 
 @app.middleware("http")
 async def commit_session_after_request(request: Request, call_next):
