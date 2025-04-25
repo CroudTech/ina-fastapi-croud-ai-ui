@@ -1,0 +1,33 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: open-webui
+spec:
+  template:
+    metadata:
+      annotations:
+        # This is where Cloud SQL instances should be specified
+        run.googleapis.com/cloudsql-instances: prj-croud-dev-beta-platform:europe-west1:dev-openwebui-db
+    spec:
+      serviceAccountName: openwebui-sa
+      containers:
+      - image: gcr.io/prj-croud-dev-beta-platform/open-webui
+        resources:
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+        env:
+        - name: ENV
+          value: "prod"
+        - name: WEBUI_AUTH_TRUSTED_EMAIL_HEADER
+          value: "x-goog-authenticated-user-email"
+        - name: WEBUI_NAME
+          value: "Croud AI"
+        - name: ENABLE_SIGNUP
+          value: "True"
+        # Reference secrets from Secret Manager
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: openwebui-db-url
+              key: latest
