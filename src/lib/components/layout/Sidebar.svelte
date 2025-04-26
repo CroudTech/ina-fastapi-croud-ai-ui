@@ -890,9 +890,9 @@
 		</div>
 
 		<div class="px-2">
-			<div class="flex font-primary p-4 mx-auto" style="justify-content: center;">
-    			<button><img crossorigin="anonymous" src="/static/favicon.png" class="size-9 @sm:size-10 rounded-full border-[1px] border-gray-100 dark:border-none" alt="logo" draggable="false"></button>
-				<a class="p-3" href="#">Back to Croud OS</a>
+			<div class="flex font-primary flex justify-content-center items-center rounded-xl py-0.5 px-2.5 w-full hover:bg-gray-100 dark:hover:bg-gray-900 transition" style="justify-content: center">
+    			<button><img crossorigin="anonymous" src="/static/favicon.png" class="size-7 @sm:size-10 rounded-full border-[1px] border-gray-100 dark:border-none " alt="logo" draggable="false"></button>
+				<a class="p-3" href="/">Back to Croud OS</a>
 			</div>
 		</div>
 	</div>
