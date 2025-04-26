@@ -106,9 +106,9 @@
 									<a
 										href="https://openwebui.com/m/{models[selectedModelIdx]?.info?.meta?.user
 											.username}"
-										>{models[selectedModelIdx]?.info?.meta?.user.name
-											? models[selectedModelIdx]?.info?.meta?.user.name
-											: `@${models[selectedModelIdx]?.info?.meta?.user.username}`}</a
+									>{models[selectedModelIdx]?.info?.meta?.user.name
+										? models[selectedModelIdx]?.info?.meta?.user.name
+										: `@${models[selectedModelIdx]?.info?.meta?.user.username}`}</a
 									>
 								{:else}
 									{models[selectedModelIdx]?.info?.meta?.user.name}
@@ -117,7 +117,7 @@
 						{/if}
 					{:else}
 						<div class=" font-medium text-gray-400 dark:text-gray-500 line-clamp-1 font-p">
-							{$i18n.t('How can I help you today?')}
+							{$i18n.t('How can I help you today, {{name}}?', { name: $user?.name })}
 						</div>
 					{/if}
 				</div>

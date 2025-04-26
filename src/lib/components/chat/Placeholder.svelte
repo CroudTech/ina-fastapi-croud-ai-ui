@@ -200,7 +200,7 @@
 					{transparentBackground}
 					{stopResponse}
 					{createMessagePair}
-					placeholder={$i18n.t('How can I help you today?')}
+					placeholder={$i18n.t('How can I help you today, {{name}}?', { name: $user?.name })}
 					on:upload={(e) => {
 						dispatch('upload', e.detail);
 					}}
