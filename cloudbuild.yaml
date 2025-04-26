@@ -5,6 +5,7 @@ steps:
     '-t', 'gcr.io/prj-croud-dev-beta-platform/open-webui',
     '--build-arg', 'BUILDPLATFORM=linux/amd64',
     '--build-arg', 'NODE_OPTIONS=--max-old-space-size=8192',
+    '--build-arg', 'BUILD_HASH=${BUILD_ID}',
     '.'
   ]
   env:
