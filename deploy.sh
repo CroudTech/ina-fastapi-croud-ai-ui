@@ -12,7 +12,7 @@ echo "Starting deployment process for $SERVICE_NAME in $REGION..."
 
 # 1. Submit build to Cloud Build
 echo "Building container with Cloud Build..."
-#gcloud builds submit --config=cloudbuild.yaml
+gcloud builds submit --config=cloudbuild.yaml
 
 # 2. Deploy service using YAML configuration
 echo "Deploying service to Cloud Run..."
