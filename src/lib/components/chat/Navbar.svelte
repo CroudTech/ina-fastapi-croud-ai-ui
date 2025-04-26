@@ -142,14 +142,12 @@
 						<UserMenu
 							className="max-w-[200px]"
 							role={$user?.role}
-							name={$user?.name}
 							on:show={(e) => {
  								if (e.detail === 'archived-chat') {
  									showArchivedChats.set(true);
  								}
  							}}
 						>
-							{$user.name}
 							<button
 								class="select-none flex rounded-xl p-1.5 w-full hover:bg-gray-50 dark:hover:bg-gray-850 transition"
 								aria-label="User Menu"
