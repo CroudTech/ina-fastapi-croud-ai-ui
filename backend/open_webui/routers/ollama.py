@@ -215,6 +215,9 @@ async def verify_connection(
     url = form_data.url
     key = form_data.key
 
+    if any(x in url for x in "'\"#"):
+        raise HTTPException(400, detail="URL contains illegal characters")
+
     async with aiohttp.ClientSession(
         timeout=aiohttp.ClientTimeout(total=AIOHTTP_CLIENT_TIMEOUT_MODEL_LIST)
     ) as session:
